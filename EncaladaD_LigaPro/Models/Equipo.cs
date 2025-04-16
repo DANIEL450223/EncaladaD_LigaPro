@@ -10,7 +10,7 @@ namespace EncaladaD_LigaPro.Models
         [MaxLength(100)]
         [DisplayName ("Ingrese el nombre: ")]
         public string Nombre { get; set; }
-        [Range(0,20)]
+        [Range(0,100)]
         public int PartidosJugados { get; set; }
         [Range(0, 20)]
         public int PartidosGanados { get; set; }
@@ -23,10 +23,9 @@ namespace EncaladaD_LigaPro.Models
         {
             get 
             { 
-                int total_puntos = PartidosGanados * 3 + PartidosEmpatados;
-                return total_puntos;
+                return (PartidosGanados * 3) + PartidosEmpatados;
             }
-                
+            set { }  
         }
 
     }

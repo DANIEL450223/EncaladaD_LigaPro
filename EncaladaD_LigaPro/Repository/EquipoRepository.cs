@@ -4,49 +4,53 @@ namespace EncaladaD_LigaPro.Repositorios
 {
     public class EquipoRepository
     {
-        public IEnumerable<Equipo> DevuelveListadoEquipos(){
-            List<Equipo> equipos = new List<Equipo>();
+        public static List<Equipo> Equipos = new List<Equipo>{
 
-            Equipo BSC = new Equipo
+
+            new Equipo
             {
                 Id = 1,
                 Nombre = "Barcelona",
                 PartidosJugados = 10,
                 PartidosGanados = 10,
                 PartidosEmpatados = 0,
-                PartidosPerdidos = 0
-            };
+                PartidosPerdidos = 0,
+                TotalPuntos = 30
+            },
 
 
-            Equipo LDU = new Equipo
+             new Equipo
             {
                 Id = 2,
                 Nombre = "Liga de Quito",
                 PartidosJugados = 10,
                 PartidosGanados = 1,
                 PartidosEmpatados = 1,
-                PartidosPerdidos = 8
+                PartidosPerdidos = 8,
+                TotalPuntos = 4
+            },
             };
-            equipos.Add(BSC);
-            equipos.Add(LDU);
 
-            equipos = equipos.OrderByDescending(item => item.TotalPuntos).ToList();
-
-            return equipos;
+        public IEnumerable<Equipo> DevuelveListadoEquipos()
+        {
+            return Equipos;
         }
 
         public Equipo DevuelveInformacionEquipo(int Id) 
         {
-            var equipos = DevuelveListadoEquipos();
-            var equipo = equipos.First(item => item.Id == Id);
-
-            return equipo;
+            return Equipos.FirstOrDefault(e => e.Id == Id);
         }
 
-        public bool ActualizarEquipo(Equipo Equipo) 
+        public bool ActualizarEquipo(int Id, Equipo equipoActual) 
         {
-            //Logica para actualizar
+            var index = Equipos.FindIndex(e => e.Id == Id);
+            if (index == 0) 
+            {
+                equipoActual.TotalPuntos = (equipoActual.PartidosGanados * 3) + equipoActual.PartidosEmpatados;
+                Equipos[index] = equipoActual;
             return true;
+        }
+        return false;
         }
     }
 }

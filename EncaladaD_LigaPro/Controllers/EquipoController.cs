@@ -27,16 +27,16 @@ namespace EncaladaD_LigaPro.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarEquipo(Equipo equipo) 
+        public IActionResult EditarEquipo(int Id,Equipo equipo) 
         {
             try
             {
-                var actualizar = _repository.ActualizarEquipo(equipo);
-                return View();
+                _repository.ActualizarEquipo(Id, equipo);
+                return RedirectToAction(nameof(List));
             }
             catch (Exception e) 
             {
-                throw;
+                return View();
             }   
         }
     }
